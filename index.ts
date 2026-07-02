@@ -6,7 +6,6 @@ import orderRouter from "./src/order.ts";
 import type { Request, Response, NextFunction } from "express";
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "@/swagger.ts";
-import { redis } from "@/redis.ts";
 
 interface HttpError extends Error {
   status?: number;
@@ -15,6 +14,8 @@ interface HttpError extends Error {
 
 // 创建一个应用实例 app。
 const app = express();
+
+app.set("trust proxy", 1); // Railway 反代：从 X-Forwarded-For 取真实客户端 IP
 
 app.use((req: Request, res: Response, next: NextFunction) => {
   console.log("请求来了", req.url, req.method, req.path);
