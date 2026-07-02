@@ -65,7 +65,8 @@ app.use(express.json());
 // 解析 Postman 的 x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
-const PORT = 8080;
+// const PORT = 8080;
+const PORT = Number(process.env.PORT) || 8080;
 
 // 注册一条路由：当有人用 GET 访问 /health 时，执行后面的函数。
 app.get("/health", (req: Request, res: Response) => {
